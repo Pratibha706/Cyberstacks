@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebShield - AI-Assisted Vulnerability Scanner</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="logo-wrapper">
+                    <img src="logof.png" alt="WebShield Logo" class="logo-image">
+                    <!-- <h1>WebShield</h1> -->
+                </div>
+                <p class="hero-description">AI-Assisted Website Vulnerability Scanner</p>
+                <p class="hero-tagline">Cloud-Powered Security Analysis with Google Cloud Infrastructure</p>
+                <div class="hero-badges">
+                    <span class="badge">Powered by OWASP ZAP</span>
+                    <span class="badge">Google Cloud Run</span>
+                    <span class="badge">Real-time Analysis</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Scan Section -->
+    <section class="scan-section">
+        <div class="container">
+            <div class="scan-card">
+                <h2>Analyze Website Security</h2>
+                <p class="scan-description">Enter a website URL to perform comprehensive vulnerability scanning</p>
+                
+                <form id="scanForm" class="scan-form">
+                    <div class="input-group">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 13C10.4295 13.5741 10.9774 14.0491 11.6066 14.3929C12.2357 14.7367 12.9315 14.9411 13.6467 14.9923C14.3618 15.0435 15.0796 14.9403 15.7513 14.6897C16.4231 14.4392 17.0331 14.047 17.54 13.54L20.54 10.54C21.4508 9.59695 21.9548 8.33394 21.9434 7.02296C21.932 5.71198 21.4061 4.45791 20.4791 3.53087C19.5521 2.60383 18.298 2.07799 16.987 2.0666C15.676 2.0552 14.413 2.55918 13.47 3.46997L11.75 5.17997" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 11C13.5705 10.4259 13.0226 9.95083 12.3934 9.60707C11.7642 9.26331 11.0685 9.05889 10.3533 9.00768C9.63816 8.95646 8.92037 9.05965 8.24861 9.31023C7.57685 9.5608 6.96684 9.95303 6.45996 10.46L3.45996 13.46C2.54917 14.403 2.04519 15.666 2.05659 16.977C2.06798 18.288 2.59382 19.5421 3.52086 20.4691C4.4479 21.3961 5.70197 21.922 7.01295 21.9334C8.32393 21.9448 9.58694 21.4408 10.53 20.53L12.24 18.82" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input 
+                            type="url" 
+                            id="urlInput" 
+                            placeholder="https://example.com" 
+                            required
+                            pattern="https?://.+"
+                        >
+                    </div>
+                    <button type="submit" id="scanButton" class="scan-button">
+                        <svg class="button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Start Security Scan</span>
+                    </button>
+                </form>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state hidden">
+                    <div class="spinner"></div>
+                    <p class="loading-text">Analyzing security vulnerabilities...</p>
+                    <p class="loading-subtext">This may take 30-60 seconds</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Dashboard -->
+    <section id="resultsSection" class="results-section hidden">
+        <div class="container">
+            <h2 class="section-title">Scan Results</h2>
+            
+            <div class="results-grid">
+                <!-- Overall Risk Card -->
+                <div class="result-card risk-card">
+                    <div class="card-header">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V11M12 15H12.01M5.07183 19H18.9282C20.4678 19 21.4301 17.3333 20.6603 16L13.7321 4C12.9623 2.66667 11.0377 2.66667 10.2679 4L3.33975 16C2.56995 17.3333 3.53223 19 5.07183 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3>Overall Risk Level</h3>
+                    </div>
+                    <div class="risk-level" id="riskLevel">
+                        <span class="risk-badge">Analyzing...</span>
+                    </div>
+                    <p class="scanned-url" id="scannedUrl"></p>
+                </div>
+
+                <!-- Vulnerability Breakdown -->
+                <div class="result-card breakdown-card">
+                    <div class="card-header">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3>Vulnerability Breakdown</h3>
+                    </div>
+                    <div class="severity-list">
+                        <div class="severity-item high">
+                            <div class="severity-label">
+                                <span class="severity-dot"></span>
+                                <span>High Severity</span>
+                            </div>
+                            <span class="severity-count" id="highCount">0</span>
+                        </div>
+                        <div class="severity-item medium">
+                            <div class="severity-label">
+                                <span class="severity-dot"></span>
+                                <span>Medium Severity</span>
+                            </div>
+                            <span class="severity-count" id="mediumCount">0</span>
+                        </div>
+                        <div class="severity-item low">
+                            <div class="severity-label">
+                                <span class="severity-dot"></span>
+                                <span>Low Severity</span>
+                            </div>
+                            <span class="severity-count" id="lowCount">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Vulnerabilities -->
+                <div class="result-card total-card">
+                    <div class="card-header">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 19V6L14 4V17M9 19C9 20.1046 7.65685 21 6 21C4.34315 21 3 20.1046 3 19C3 17.8954 4.34315 17 6 17C7.65685 17 9 17.8954 9 19ZM14 17C14 18.1046 15.3431 19 17 19C18.6569 19 20 18.1046 20 17C20 15.8954 18.6569 15 17 15C15.3431 15 14 15.8954 14 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3>Total Vulnerabilities</h3>
+                    </div>
+                    <div class="total-count" id="totalCount">0</div>
+                    <p class="total-label">Issues Detected</p>
+                </div>
+            </div>
+
+            <button id="newScanButton" class="secondary-button">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 4V9H4.58152M19.9381 11C19.446 7.05369 16.0796 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9M4.58152 9H9M20 20V15H19.4185M19.4185 15C18.2317 17.9318 15.3574 20 12 20C7.92038 20 4.55399 16.9463 4.06189 13M19.4185 15H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Scan Another Website
+            </button>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-section">
+        <div class="container">
+            <h2 class="section-title">Powered By Google Cloud</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon firebase">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.89 15.672L6.255.461A.542.542 0 017.27.288L9.813 5.24 3.89 15.672zM16.795 18.46l-2.102-4.015L7.675 5.24 14.693 18.46l2.102 4.015zM18.405 12.92L16.795 18.46 12 21.346l4.795-8.426 1.61-5.54z"/>
+                        </svg>
+                    </div>
+                    <h3>Firebase Hosting</h3>
+                    <p>Fast, secure static hosting with global CDN distribution</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon cloudrun">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l7.45 3.73L12 11.64 4.55 7.91 12 4.18zM4 9.5l7 3.5v7l-7-3.5v-7zm9 10.5v-7l7-3.5v7l-7 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Google Cloud Run</h3>
+                    <p>Serverless container platform for scalable backend services</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon firestore">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h8v2H8v-2z"/>
+                        </svg>
+                    </div>
+                    <h3>Google Firestore</h3>
+                    <p>NoSQL cloud database for scan history and results storage</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon owasp">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L4 6v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-8-4zm0 2.18l6 3v4.82c0 4.52-3.04 8.78-7 9.93-3.96-1.15-7-5.41-7-9.93V7.18l8-4z"/>
+                        </svg>
+                    </div>
+                    <h3>OWASP ZAP</h3>
+                    <p>Industry-standard vulnerability scanning engine</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg class="shield-icon-small" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L4 6V11C4 16.55 7.84 21.74 13 23C18.16 21.74 22 16.55 22 11V6L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>WebShield</span>
+                </div>
+                <p class="footer-disclaimer">
+                    <strong>Hackathon Project Disclaimer:</strong> This is a demonstration project built for educational purposes. 
+                    Results should be verified with professional security audits for production environments.
+                </p>
+                <p class="footer-copyright">
+                    Built with Google Cloud Platform • Powered by OWASP ZAP
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
