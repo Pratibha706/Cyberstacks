@@ -315,6 +315,26 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
+// Trigger a new scan
+async function startScan() {
+    const url = document.getElementById('url').value;
+
+    const res = await fetch('/api/startscan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+    });
+
+    const data = await res.json();
+    console.log(data); // contains scanRunId
+}
+
+// Get scan results
+async function getResults(scanRunId) {
+    const res = await fetch(`/api/getScanResults?scanRunId=${scanRunId}`);
+    const data = await res.json();
+    console.log(data); // contains scan findings
+}
 
 /**
  * CONFIGURATION INSTRUCTIONS FOR DEPLOYMENT
@@ -340,4 +360,5 @@ if (document.readyState === 'loading') {
  *   "low": 2,
  *   "total": 10
  * }
+
  */
