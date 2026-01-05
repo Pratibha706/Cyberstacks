@@ -49,17 +49,29 @@ body {
 }
 
 .container {
+    /* max-width: 1200px; */
+    display: flex;
+    margin: 0 auto;
+    padding: 0 0px;
+}
+.tech-section .container {
+    display:block;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
-
+.footer .container{
+    display:block;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 /* ===================================
    Hero Section
    =================================== */
 .hero {
     background: linear-gradient(135deg, #1a237e 0%, #0d1b3e 100%);
-    padding: 0 0 40px 0;
+    padding: 0 0 0px 0;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -79,19 +91,31 @@ body {
 }
 
 .hero-content {
+    width: 64vw;
     position: relative;
+    padding: 20px;
     z-index: 1;
 }
 
 .logo-wrapper {
+    margin-top: 25px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
+    /* justify-content: center; */
+    /* gap: 15px; */
     /* margin-bottom: 20px; */
 }
 
 /* Logo Images */
+
+#tagline{
+    background: linear-gradient(135deg, #4f9bff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: x-large;
+}
 .logo-image {
     width: auto;
     height: 100px;
@@ -99,6 +123,20 @@ body {
     object-fit: contain;
     filter: drop-shadow(0 0 20px rgba(79, 155, 255, 0.3));
     animation: float 3s ease-in-out infinite;
+}
+
+.logofont {
+  font-size: xx-large;
+  margin-left: 0%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cyber {
+  color: white;
+}
+
+.stacks {
+  color: cyan; /* blue */
 }
 
 .logo-image-small {
@@ -146,25 +184,36 @@ body {
 .hero-badges {
     display: flex;
     gap: 15px;
-    justify-content: center;
+    /* justify-content: center; */
     flex-wrap: wrap;
+    padding: 10px;
+    background: #141d3b ;
 }
 
 .badge {
     background: rgba(79, 155, 255, 0.1);
     border: 1px solid rgba(79, 155, 255, 0.3);
     padding: 8px 20px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     font-size: 0.9rem;
     color: var(--accent-primary);
     font-weight: 500;
 }
+
+
+
 
 /* ===================================
    Scan Section
    =================================== */
 .scan-section {
     padding: 80px 0;
+    display: flex;
+}
+
+#iimage{
+    height: 370px;
+    margin-left: 20px;
 }
 
 .scan-card {
@@ -329,6 +378,7 @@ body {
     background-clip: text;
 }
 
+
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -376,7 +426,7 @@ body {
     padding: 30px 0;
 }
 
-.risk-badge {
+/* .risk-badge {
     display: inline-block;
     padding: 15px 40px;
     border-radius: 30px;
@@ -384,6 +434,12 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+} */
+
+.risk-badge {
+    border-radius: 6px;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
 }
 
 .risk-badge.high {
@@ -608,11 +664,11 @@ body {
 /* ===================================
    Footer
    =================================== */
-.footer {
+/* .footer {
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
     padding: 40px 0;
-}
+} */
 
 .footer-content {
     text-align: center;
@@ -623,7 +679,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .shield-icon-small {
@@ -638,12 +694,19 @@ body {
     color: var(--text-primary);
 }
 
-.footer-disclaimer {
+/* .footer-disclaimer {
     max-width: 800px;
     margin: 0 auto 15px;
     color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.8;
+} */
+
+.footer {
+    background: #020617;
+}
+.footer-disclaimer {
+    font-size: 0.85rem;
 }
 
 .footer-disclaimer strong {
@@ -652,6 +715,7 @@ body {
 
 .footer-copyright {
     color: var(--text-muted);
+    margin:10px;
     font-size: 0.9rem;
 }
 
