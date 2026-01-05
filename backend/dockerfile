@@ -1,0 +1,23 @@
+# WebShield Backend Dockerfile for Cloud Run
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy package files first (for caching npm install)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy the rest of the application code
+COPY . .
+
+# Ensure Cloud Run uses the PORT environment variable
+ENV PORT 8080
+
+# Expose the port (optional but good practice)
+EXPOSE 8080
+
+# Start the application
+CMD ["npm", "start"]
